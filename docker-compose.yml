@@ -1,0 +1,41 @@
+version: "3"
+services:
+  database:
+    image: postgres:14.5
+    container_name: db_aws
+    hostname: db_aws_host
+    environment:
+      - POSTGRES_PASSWORD=1
+      - POSTGRES_USER=postgres
+
+    volumes:
+      - pg_aws:/var/lib/postgresql/data
+
+    expose:
+      - "5433"
+    ports:
+      - "5433:5433"
+    command: -p 5433
+
+  backend:
+    depends_on:
+      - database
+    build:
+      dockerfile: Dockerfile.bk
+    ports:
+      - "8080:8080"
+
+  frontend:
+    depends_on:
+      - backend
+
+    build:
+      dockerfile: Dockerfile.fk
+    ports:
+      - "3000:3000"
+
+    stdin_open: true
+    tty: true
+
+volumes:
+  pg_aws:
