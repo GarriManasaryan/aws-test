@@ -102,6 +102,6 @@ jobs:
   #       uses: docker/build-push-action@v4
   #       with:
   #         context: ./frontend
-          file: ./frontend/Dockerfile.fk
-          push: true
-          tags: garrri/aws_test_frontend:latest
+  #         file: ./frontend/Dockerfile.fk
+  #         push: true
+  #         tags: garrri/aws_test_frontend:latest
