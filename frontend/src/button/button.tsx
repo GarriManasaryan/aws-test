@@ -20,11 +20,15 @@ function MyButton() {
     };
 
     const onClickGetAll = () => {
-        axiosConf.get('/api/products')
-        .then((response) => {
-            setAllName(response.data)
-            console.log(response.data)
-        })
+        try {
+            axiosConf.get('/api/products')
+            .then((response) => {
+                setAllName(response.data)
+                console.log(response.data)
+            })
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     return (
