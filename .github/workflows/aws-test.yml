@@ -103,9 +103,6 @@ jobs:
       - name: Print directory
         run: tree -d .
 
-      - name: Print directory v2
-        run: ls testing_system/build/
-
       - name: Display structure of downloaded files
         run: ls -R
 
