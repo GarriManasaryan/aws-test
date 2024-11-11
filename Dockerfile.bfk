@@ -1,0 +1,37 @@
+# First stage: Build the frontend
+FROM node:20-alpine AS frontend-build
+
+# Set the working directory
+WORKDIR /app/frontend
+
+# Copy package files and install dependencies
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm install
+
+# Copy the rest of the frontend files and build the project
+COPY frontend/ .
+RUN npm run build
+
+# Second stage: Build the final image with backend and frontend
+FROM bellsoft/liberica-openjdk-debian:17
+
+# Set working directory for the final image
+WORKDIR /app
+
+# Copy the backend JAR file to the final image
+COPY backend/build/output-docker/aws.jar /app/aws.jar
+
+# Copy the frontend build files from the previous stage
+COPY --from=frontend-build /app/frontend/build /app/frontend
+
+# Install supervisord to manage both processes
+RUN apt-get update && apt-get install -y supervisor && rm -rf /var/lib/apt/lists/*
+
+# Expose the ports for frontend and backend
+EXPOSE 3000 8080
+
+# Copy the supervisord configuration file
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Start supervisord to run both frontend and backend services
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

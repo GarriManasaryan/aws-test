@@ -1,16 +1,15 @@
 version: "3"
 services:
+
   database:
     image: postgres:14.5
     container_name: db_aws
     hostname: db_aws_host
     environment:
-      - POSTGRES_PASSWORD=1
-      - POSTGRES_USER=postgres
-
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - pg_aws:/var/lib/postgresql/data
-
     expose:
       - "5433"
     ports:
@@ -23,6 +22,10 @@ services:
       - database
     build:
       dockerfile: Dockerfile.bk
+    environment:
+      DB_URL: ${DB_URL}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
     ports:
       - "8080:8080"
 
@@ -37,6 +40,21 @@ services:
 
     stdin_open: true
     tty: true
+
+  # app:
+  #   # image: garrri/aws_test_backend:latest
+  #   depends_on:
+  #     - database
+  #   build:
+  #     dockerfile: Dockerfile.bfk
+  #   ports:
+  #     - "8080:8080"
+  #     - "3000:3000"
+  #   expose:
+  #     - "8080"
+  #     - "3000"
+  #   stdin_open: true
+  #   tty: true
 
 volumes:
   pg_aws:
