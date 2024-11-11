@@ -18,6 +18,7 @@ services:
     command: -p 5433
 
   backend:
+    # image: garrri/aws_test_backend:latest
     depends_on:
       - database
     build:
@@ -26,9 +27,9 @@ services:
       - "8080:8080"
 
   frontend:
+    # image: garrri/aws_test_frontend:latest
     depends_on:
       - backend
-
     build:
       dockerfile: Dockerfile.fk
     ports:

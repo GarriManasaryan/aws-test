@@ -3,8 +3,8 @@ spring:
     name: aws
 
   datasource:
-    url: jdbc:postgresql://db_aws_host:5433/db_aws
-#    url: jdbc:postgresql://localhost:5433/db_aws
+    url: jdbc:postgresql://db_aws_host:5433/dbaws
+#    url: jdbc:postgresql://localhost:5433/dbaws
     username: postgres
     password: 1
 
