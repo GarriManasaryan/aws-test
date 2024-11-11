@@ -1,4 +1,4 @@
-FROM bellsoft/liberica-openjdk-debian:21
+FROM bellsoft/liberica-openjdk-debian:17
 
 # скопировать все файлы из локальной машины в app
 COPY backend/build/output-docker/aws.jar /app/
