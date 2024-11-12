@@ -24,14 +24,14 @@ COPY backend/build/output-docker/aws.jar .
 # Stage 3: Combine frontend and backend into one image
 FROM nginx:alpine
 
-# Install Java in the final stage
-RUN apk add openjdk17-jre
+# Install Java and gettext for envsubst in the final stage
+RUN apk add openjdk17-jre gettext
 
 # Copy built frontend assets from frontend-builder
 COPY --from=frontend-builder /app/frontend/build /usr/share/nginx/html
 
-# Copy nginx configuration file
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy nginx configuration template
+COPY nginx.conf /etc/nginx/conf.d/default.conf.template
 
 # Copy backend jar to the final image
 COPY --from=backend-builder /app/backend/aws.jar /app/backend/
@@ -46,5 +46,5 @@ EXPOSE 8080
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-# Use the shell script as the CMD
-CMD ["/start.sh"]
+# Use envsubst to substitute the environment variable in nginx.conf at runtime, then start Nginx and the backend
+CMD envsubst '${REACT_APP_BASE_URL}' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && /start.sh

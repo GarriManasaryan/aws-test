@@ -16,11 +16,11 @@ function MyButton() {
     };
 
     const onClickSave = () => {
-        axiosConf.post("/api/products", {"name":name})
+        axiosConf.post("/products", {"name":name})
     };
 
     const onClickGetAll = () => {
-        axiosConf.get('/api/products')
+        axiosConf.get('/products')
         .then((response) => {
             setAllName(response.data)
             console.log(response.data)

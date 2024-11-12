@@ -3,13 +3,11 @@ import axios, { AxiosHeaders, AxiosRequestHeaders } from 'axios';
 // Next we make an 'instance' of it
 const axiosConf = axios.create({
 // .. where we make our configurations
-    baseURL: process.env.REACT_APP_BASE_URL
+    // baseURL: process.env.REACT_APP_BASE_URL + '/api'
+    baseURL: '/api'
+    
 });
 
-const axiosAuth = axios.create({
-    // .. where we make our configurations
-        baseURL: process.env.REACT_APP_BASE_URL
-    });
 
 axiosConf.defaults.headers.common = {
     ...axiosConf.defaults.headers.common,
