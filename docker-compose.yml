@@ -16,52 +16,52 @@ services:
       - "5433:5433"
     command: -p 5433
 
-  # backend:
-  #   # image: garrri/aws_test_backend:latest
-  #   depends_on:
-  #     - database
-  #   build:
-  #     dockerfile: Dockerfile.bk
-  #   environment:
-  #     DB_URL: ${DB_URL}
-  #     DB_USERNAME: ${DB_USERNAME}
-  #     DB_PASSWORD: ${DB_PASSWORD}
-  #   ports:
-  #     - "8080:8080"
-
-  # frontend:
-  #   # image: garrri/aws_test_frontend:latest
-  #   depends_on:
-  #     - backend
-  #   environment:
-  #     REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
-  #   build:
-  #     dockerfile: Dockerfile.fk
-  #   ports:
-  #     - "3000:3000"
-
-  #   stdin_open: true
-  #   tty: true
-
-  app:
-    # image: garrri/aws_test_full_app:latest
+  backend:
+    # image: garrri/aws_test_backend:latest
     depends_on:
       - database
+    build:
+      dockerfile: Dockerfile.bk
     environment:
       DB_URL: ${DB_URL}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
-      REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
-    build:
-      dockerfile: Dockerfile.bfk
     ports:
       - "8080:8080"
+
+  frontend:
+    # image: garrri/aws_test_frontend:latest
+    depends_on:
+      - backend
+    environment:
+      REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
+    build:
+      dockerfile: Dockerfile.fk
+    ports:
       - "3000:3000"
-    expose:
-      - "8080"
-      - "3000"
+
     stdin_open: true
     tty: true
+
+  # app:
+  #   # image: garrri/aws_test_full_app:latest
+  #   depends_on:
+  #     - database
+  #   environment:
+  #     DB_URL: ${DB_URL}
+  #     DB_USERNAME: ${DB_USERNAME}
+  #     DB_PASSWORD: ${DB_PASSWORD}
+  #     REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
+  #   build:
+  #     dockerfile: Dockerfile.bfk
+  #   ports:
+  #     - "8080:8080"
+  #     - "3000:3000"
+  #   expose:
+  #     - "8080"
+  #     - "3000"
+  #   stdin_open: true
+  #   tty: true
 
 volumes:
   pg_aws:
