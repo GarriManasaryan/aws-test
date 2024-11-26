@@ -130,7 +130,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: Dockerfile.fk
+          file: Dockerfile.fknginx
           push: true
           tags: garrri/aws_test_frontend:latest
 

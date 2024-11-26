@@ -36,7 +36,7 @@ services:
     environment:
       REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
     build:
-      dockerfile: Dockerfile.fk
+      dockerfile: Dockerfile.fknginx
     ports:
       - "3000:3000"
 

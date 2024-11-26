@@ -3,10 +3,10 @@ import axios, { AxiosHeaders, AxiosRequestHeaders } from 'axios';
 const axiosConf = axios.create({
 
     // no nginx
-    baseURL: process.env.REACT_APP_BASE_URL + '/api'
+    // baseURL: process.env.REACT_APP_BASE_URL + '/api'
 
     // nginx
-    // baseURL: '/api'
+    baseURL: '/api'
     
 });
 
