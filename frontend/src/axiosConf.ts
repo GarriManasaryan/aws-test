@@ -1,10 +1,12 @@
 import axios, { AxiosHeaders, AxiosRequestHeaders } from 'axios';
 
-// Next we make an 'instance' of it
 const axiosConf = axios.create({
-// .. where we make our configurations
-    // baseURL: process.env.REACT_APP_BASE_URL + '/api'
-    baseURL: '/api'
+
+    // no nginx
+    baseURL: process.env.REACT_APP_BASE_URL + '/api'
+
+    // nginx
+    // baseURL: '/api'
     
 });
 

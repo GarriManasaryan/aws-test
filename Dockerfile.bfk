@@ -18,6 +18,12 @@ FROM bellsoft/liberica-openjdk-debian:17 AS backend-builder
 # Set working directory for backend
 WORKDIR /app/backend
 
+
+
+# !! USER - НАДО убедиться, что работают не под рутом (дефолт)
+
+
+
 # Copy the backend jar file
 COPY backend/build/output-docker/aws.jar .
 
