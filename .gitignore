@@ -8,7 +8,7 @@ build/
 # secrets
 secrets/*
 aws_conf/*
-.env
+.env*
 
 ### STS ###
 .apt_generated

@@ -20,6 +20,7 @@ function MyButton() {
     };
 
     const onClickGetAll = () => {
+        console.log(process.env.REACT_APP_BASE_URL)
         axiosConf.get('/products')
         .then((response) => {
             setAllName(response.data)
@@ -34,6 +35,7 @@ function MyButton() {
             <button onClick={() => onClickSave()}>send save from input</button>
             <div style={{paddingTop: "5rem"}}></div>
             <button onClick={() => onClickGetAll()}>get all</button>
+            <button onClick={() => onClickGetAll()}>{process.env.NGINX}</button>
             <div>
                 <ul>
                     {allNames.map((i) => (

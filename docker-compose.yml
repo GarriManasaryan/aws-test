@@ -34,6 +34,7 @@ services:
     depends_on:
       - backend
     environment:
+      # this is only passed to nginx config; react app doesnt need it
       REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
     build:
       dockerfile: Dockerfile.fknginx

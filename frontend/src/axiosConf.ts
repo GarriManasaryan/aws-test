@@ -2,11 +2,14 @@ import axios, { AxiosHeaders, AxiosRequestHeaders } from 'axios';
 
 const axiosConf = axios.create({
 
-    // no nginx
+    // // no nginx
     // baseURL: process.env.REACT_APP_BASE_URL + '/api'
 
-    // nginx
-    baseURL: '/api'
+    // // nginx
+    // baseURL: '/api'
+
+    // all
+    baseURL: process.env.REACT_APP_NGINX == 'true' ? '/api' : process.env.REACT_APP_BASE_URL + '/api'
     
 });
 
