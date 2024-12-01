@@ -35,7 +35,6 @@ function MyButton() {
             <button onClick={() => onClickSave()}>send save from input</button>
             <div style={{paddingTop: "5rem"}}></div>
             <button onClick={() => onClickGetAll()}>get all</button>
-            <button onClick={() => onClickGetAll()}>{process.env.NGINX}</button>
             <div>
                 <ul>
                     {allNames.map((i) => (
@@ -44,7 +43,6 @@ function MyButton() {
                 </ul>
             </div>
             <div style={{paddingTop: "5rem"}}></div>
-            <button className='icon'>color-test</button>
         </div>
     )
 }
