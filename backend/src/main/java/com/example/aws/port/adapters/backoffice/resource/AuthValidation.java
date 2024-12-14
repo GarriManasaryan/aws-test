@@ -58,13 +58,14 @@ public class AuthValidation {
             // Redirect to homepage
             response.setStatus(200);
 
-            // add users
-            updateUsers(decodedToken);
+//            // add users
+//            updateUsers(decodedToken);
 
             return new AuthResponse("ok");
 //            response.getWriter().write("Authorized");
 
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             // Return 401 Unauthorized response
             var authRespBody = new AuthResponse("not ok");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
