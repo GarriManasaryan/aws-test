@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import axiosConf from '../axiosConf';
 import './style.css';
+import Login from '../login/login';
+import { axiosConf, backofficeConf } from '../axiosConf';
 
 interface IProduct {
     name: string;
@@ -28,13 +29,28 @@ function MyButton() {
         })
     };
 
+    const onClickGetAllNoAuth = () => {
+        console.log(process.env.REACT_APP_BASE_URL)
+        backofficeConf.get('/products')
+        .then((response) => {
+            setAllName(response.data)
+            console.log(response.data)
+        })
+    };
+
     return (
-        <div>
-            <div style={{paddingTop: "15rem"}}></div>
+        <div style={{
+                display: "flex", 
+                flexDirection: "column", 
+                flexWrap: "wrap", 
+                gap: "2rem",
+                padding: "30rem"
+            }}>
+            <Login/>
             <input id="myText" type="text" onChange={(e) => onNameChange(e)}></input>
             <button onClick={() => onClickSave()}>send save from input</button>
-            <div style={{paddingTop: "5rem"}}></div>
             <button onClick={() => onClickGetAll()}>get all</button>
+            <button onClick={() => onClickGetAllNoAuth()}>no auth get all</button>
             <div>
                 <ul>
                     {allNames.map((i) => (
@@ -42,7 +58,6 @@ function MyButton() {
                     ))}
                 </ul>
             </div>
-            <div style={{paddingTop: "5rem"}}></div>
         </div>
     )
 }

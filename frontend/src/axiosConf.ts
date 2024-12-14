@@ -1,4 +1,5 @@
 import axios, { AxiosHeaders, AxiosRequestHeaders } from 'axios';
+import endpointConfigurator from './endpointConfigurator';
 
 const axiosConf = axios.create({
 
@@ -9,18 +10,31 @@ const axiosConf = axios.create({
     // baseURL: '/api'
 
     // all
-    baseURL: process.env.REACT_APP_NGINX == 'true' ? '/api' : process.env.REACT_APP_BASE_URL + '/api'
+    baseURL: endpointConfigurator('/api')
     
 });
 
 
 axiosConf.defaults.headers.common = {
     ...axiosConf.defaults.headers.common,
-    "Access-Control-Allow-Origin" : "*", 
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PATCH', 
-    "Access-Control-Expose-Headers":"*"
-}
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PATCH",
+    "Access-Control-Expose-Headers": "*",
+};
+
+// Set withCredentials
+axiosConf.defaults.withCredentials = true;
 
 const changableActionsList:string[] = ['post', 'patch', 'delete']
 
-export default axiosConf;
+// Create a new configuration for "backoffice" without modifying the original
+const backofficeConf = axios.create({
+    ...axiosConf.defaults, // Copy all existing defaults
+    baseURL: endpointConfigurator('/backoffice'), // Override baseURL
+});
+
+// Override specific settings
+backofficeConf.defaults.withCredentials = false;
+
+export { axiosConf, backofficeConf };
